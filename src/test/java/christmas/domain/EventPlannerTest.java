@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
@@ -46,5 +47,19 @@ public class EventPlannerTest {
         assertThatNoException().isThrownBy(
                 () -> eventPlanner.setOrder(order)
         );
+    }
+
+    @DisplayName("getTotalCost는 올바른 주문이 주어지면 값을 반환한다.")
+    @Test
+    void getTotalCostValid() {
+        Map<String, Integer> order = new HashMap<>();
+        order.put("타파스", 1);
+        order.put("제로콜라", 1);
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getTotalCost())
+                .isEqualTo(8500);
     }
 }
