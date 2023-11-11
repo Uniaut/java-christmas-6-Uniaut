@@ -62,4 +62,23 @@ public class EventPlannerTest {
         assertThat(eventPlanner.getTotalCost())
                 .isEqualTo(8500);
     }
+
+    @DisplayName("getWeekendBenefit에 12월 30일의 이벤트인 주말 할인이 적용된다.")
+    @Test
+    void getWeekendBenefit() {
+        Calendar christmas = Calendar.getInstance();
+        christmas.set(2023, Calendar.DECEMBER, 30);
+        Date date = new Date(christmas.getTimeInMillis());
+
+        Map<String, Integer> order = new HashMap<>();
+        order.put("초코케이크", 2);
+        order.put("제로콜라", 1);
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setDate(date);
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getWeekendBenefit())
+                .isEqualTo(2023 * 2);
+    }
 }
