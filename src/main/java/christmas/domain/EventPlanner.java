@@ -1,11 +1,11 @@
 package christmas.domain;
 
-import java.util.Date;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
 public class EventPlanner {
-    private Date date;
+    private Calendar date;
     private Map<String, Integer> order;
 
     private final Map<String, Integer> menuCost;
@@ -16,7 +16,7 @@ public class EventPlanner {
         menuCost.put("제로콜라", 3000);
     }
 
-    public void setDate(Date date) {
+    public void setDate(Calendar date) {
         if (date == null) {
             throw new IllegalArgumentException("[ERROR] date is null");
         }
@@ -32,4 +32,5 @@ public class EventPlanner {
                 .mapToInt(menu -> order.get(menu) * menuCost.get(menu))
                 .sum();
     }
+
 }

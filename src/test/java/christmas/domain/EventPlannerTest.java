@@ -17,11 +17,10 @@ public class EventPlannerTest {
     void setDateValid() {
         Calendar christmas = Calendar.getInstance();
         christmas.set(2023, Calendar.DECEMBER, 25);
-        Date date = new Date(christmas.getTimeInMillis());
         EventPlanner eventPlanner = new EventPlanner();
 
         assertThatNoException().isThrownBy(
-                () -> eventPlanner.setDate(date)
+                () -> eventPlanner.setDate(christmas)
         );
     }
 
@@ -66,16 +65,15 @@ public class EventPlannerTest {
     @DisplayName("getWeekendBenefit에 12월 30일의 이벤트인 주말 할인이 적용된다.")
     @Test
     void getWeekendBenefit() {
-        Calendar christmas = Calendar.getInstance();
-        christmas.set(2023, Calendar.DECEMBER, 30);
-        Date date = new Date(christmas.getTimeInMillis());
+        Calendar dec30 = Calendar.getInstance();
+        dec30.set(2023, Calendar.DECEMBER, 30);
 
         Map<String, Integer> order = new HashMap<>();
         order.put("초코케이크", 2);
         order.put("제로콜라", 1);
 
         EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(date);
+        eventPlanner.setDate(dec30);
         eventPlanner.setOrder(order);
 
         assertThat(eventPlanner.getWeekendBenefit())
