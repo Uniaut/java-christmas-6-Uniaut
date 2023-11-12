@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +48,37 @@ public class EventPlanner {
             return numberDessert * 2023;
         }
         return 0;
+    }
+
+    public List<BenefitItem> getBenefitItems() {
+        List<BenefitItem> items = new ArrayList<>();
+
+        items.add(new BenefitItem("주말 할인", getWeekendBenefit()));
+
+        return items;
+    }
+
+    public int getBenefitTotal() {
+        return getBenefitItems().stream()
+                .mapToInt(BenefitItem::amount)
+                .sum();
+    }
+
+    public int getTotalCostDiscounted() {
+        return getTotalCost() - getBenefitTotal();
+    }
+
+    public String getBadge() {
+        if (getBenefitTotal() >= 20000) {
+            return "산타";
+        }
+        if (getBenefitTotal() >= 10000) {
+            return "트리";
+        }
+        if (getBenefitTotal() >= 5000) {
+            return "별";
+        }
+        return "없음";
     }
 
 }
