@@ -6,7 +6,6 @@ import static org.assertj.core.api.Assertions.assertThatNoException;
 
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -96,7 +95,7 @@ public class EventPlannerTest {
         eventPlanner.setOrder(order);
 
         assertThat(eventPlanner.getBenefitItems())
-                .isInstanceOf(List.class);
+                .contains(new BenefitItem("주말 할인", 2023 * 2));
 
     }
 
@@ -121,7 +120,7 @@ public class EventPlannerTest {
 
     @DisplayName("getDiscountedTotalCost는 할인 후 예상 결제 금액을 반환한다. 증정은 제외한다.")
     @Test
-    void getDiscountedTotalCost() {
+    void getTotalCostDiscounted() {
         Calendar dec30 = Calendar.getInstance();
         dec30.set(2023, Calendar.DECEMBER, 30);
 
@@ -133,7 +132,7 @@ public class EventPlannerTest {
         eventPlanner.setDate(dec30);
         eventPlanner.setOrder(order);
 
-        assertThat(eventPlanner.getDiscountedTotalCost())
+        assertThat(eventPlanner.getTotalCostDiscounted())
                 .isEqualTo((55000 * 2) + (15000 * 2) - (2023 * 2));
     }
 
