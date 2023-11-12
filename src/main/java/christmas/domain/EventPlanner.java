@@ -14,11 +14,17 @@ public class EventPlanner {
     private final Map<String, Integer> menuCost;
 
     private final List<String> dessert = List.of("초코케이크", "아이스크림");
+    private final List<String> mainDish = List.of("티본스테이크", "바비큐립", "해산물파스타");
 
     public EventPlanner() {
         menuCost = new HashMap<>();
         menuCost.put("타파스", 5500);
         menuCost.put("제로콜라", 3000);
+        menuCost.put("초코케이크", 15000);
+        menuCost.put("아이스크림", 5000);
+        menuCost.put("티본스테이크", 55000);
+        menuCost.put("바비큐립", 54000);
+        menuCost.put("해산물파스타", 35000);
     }
 
     public void setDate(Calendar date) {
@@ -50,10 +56,18 @@ public class EventPlanner {
         return 0;
     }
 
+    public int getFreebieBenefit() {
+        if (getTotalCost() >= 120000) {
+            return 25000;
+        }
+        return 0;
+    }
+
     public List<BenefitItem> getBenefitItems() {
         List<BenefitItem> items = new ArrayList<>();
 
         items.add(new BenefitItem("주말 할인", getWeekendBenefit()));
+        items.add(new BenefitItem("증정 이벤트", getFreebieBenefit()));
 
         return items;
     }
