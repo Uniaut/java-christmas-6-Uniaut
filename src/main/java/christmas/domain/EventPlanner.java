@@ -79,7 +79,16 @@ public class EventPlanner {
     }
 
     public int getTotalCostDiscounted() {
-        return getTotalCost() - getBenefitTotal();
+        int totalDiscount = 0;
+
+        for (BenefitItem item : getBenefitItems()) {
+            if (item.name().equals("증정 이벤트")) {
+                continue;
+            }
+            totalDiscount += item.amount();
+        }
+
+        return getTotalCost() - totalDiscount;
     }
 
     public String getBadge() {
