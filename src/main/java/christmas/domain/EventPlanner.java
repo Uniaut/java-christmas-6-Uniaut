@@ -62,11 +62,17 @@ public class EventPlanner {
         return 0;
     }
 
-    public int getFreebieBenefit() {
+    public List<OrderItem> getFreebieItems() {
         if (getTotalCost() >= 120000) {
-            return 25000;
+            return List.of(new OrderItem("샴페인", 1));
         }
-        return 0;
+        return List.of();
+    }
+
+    public int getFreebieBenefit() {
+        return getFreebieItems().stream()
+                .mapToInt(item -> item.quantity() * menuCost.get(item.name()))
+                .sum();
     }
 
     public List<BenefitItem> getBenefitItems() {
