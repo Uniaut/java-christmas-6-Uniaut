@@ -33,7 +33,7 @@ public class EventPlannerTest {
         ).withMessageContaining("[ERROR]");
     }
 
-    @DisplayName("이벤트 플래너 생성자")
+    @DisplayName("setOrder는 올바른 주문을 입력받으면 예외가 발생하지 않는다.")
     @Test
     void setOrderValid() {
         Map<String, Integer> order = new HashMap<>();
@@ -45,6 +45,21 @@ public class EventPlannerTest {
         assertThatNoException().isThrownBy(
                 () -> eventPlanner.setOrder(order)
         );
+    }
+
+    @DisplayName("getOrders는 입력받은 주문을 반환한다.")
+    @Test
+    void getOrders() {
+        Map<String, Integer> order = new HashMap<>();
+        order.put("타파스", 1);
+        order.put("제로콜라", 1);
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getOrderItems())
+                .contains(new OrderItem("타파스", 1))
+                .contains(new OrderItem("제로콜라", 1));
     }
 
     @DisplayName("getTotalCost는 올바른 주문이 주어지면 값을 반환한다.")
