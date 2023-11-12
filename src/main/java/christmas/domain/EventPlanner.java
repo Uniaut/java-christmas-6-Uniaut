@@ -38,6 +38,12 @@ public class EventPlanner {
         this.order = order;
     }
 
+    public List<OrderItem> getOrderItems() {
+        return order.entrySet().stream()
+                .map(entry -> new OrderItem(entry.getKey(), entry.getValue()))
+                .toList();
+    }
+
     public int getTotalCost() {
         return order.keySet().stream()
                 .mapToInt(menu -> order.get(menu) * menuCost.get(menu))
