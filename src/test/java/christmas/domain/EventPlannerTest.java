@@ -99,6 +99,24 @@ public class EventPlannerTest {
 
     }
 
+    @DisplayName("getFreebieBenefit는 샴페인 증정 혜택 금액을 반환한다.")
+    @Test
+    void getChampagneBenefit() {
+        Calendar dec30 = Calendar.getInstance();
+        dec30.set(2023, Calendar.DECEMBER, 30);
+
+        Map<String, Integer> order = new HashMap<>();
+        order.put("초코케이크", 2);
+        order.put("티본스테이크", 2);
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setDate(dec30);
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getFreebieBenefit())
+                .isEqualTo(25000);
+    }
+
     // TODO: 최대한 많은 혜택 내역을 반영하도록 수정한다.
     @DisplayName("getBenefitTotal는 총혜택 금액을 반환한다. 증정을 포함한다.")
     @Test
