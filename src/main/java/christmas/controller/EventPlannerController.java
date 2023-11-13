@@ -2,7 +2,7 @@ package christmas.controller;
 
 import christmas.domain.EventPlanner;
 import christmas.dto.ConsoleInput;
-import christmas.parser.DateParser;
+import christmas.parser.DayDateParser;
 import christmas.parser.OrderParser;
 import christmas.view.ExceptionView;
 import christmas.view.InputView;
@@ -24,8 +24,8 @@ public class EventPlannerController {
     private void setDate() {
         ConsoleInput input = inputView.askDate();
 
-        DateParser dateParser = new DateParser();
-        Calendar date = dateParser.parse(input.input());
+        DayDateParser dayDateParser = new DayDateParser();
+        Calendar date = dayDateParser.parse(input.input());
 
         eventPlanner.setDate(date);
     }
