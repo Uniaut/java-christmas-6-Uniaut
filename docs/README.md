@@ -112,6 +112,11 @@
     * [x] UI 레이어에 그대로 보낸다
     * [ ] exception 발생 시 출력 후 재시작한다.
 
+### TryUntilSuccess
+
+* [x] 메서드와 뷰를 받는다.
+* [x] 메서드를 실행하고, 예외 발생 시 메시지를 출력하고 다시 실행한다.
+
 ## Parser
 
 ### Parser(interface)
