@@ -4,6 +4,7 @@ import christmas.domain.EventPlanner;
 import christmas.dto.ConsoleInput;
 import christmas.parser.DateParser;
 import christmas.parser.OrderParser;
+import christmas.view.ExceptionView;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import christmas.view.io.ConsoleIO;
@@ -14,6 +15,7 @@ public class EventPlannerController {
     EventPlanner eventPlanner = new EventPlanner();
     InputView inputView = new InputView(new ConsoleIO());
     OutputView outputView = new OutputView(new ConsoleIO());
+    ExceptionView exceptionView = new ExceptionView(new ConsoleIO());
 
     private void setDate() {
         ConsoleInput input = inputView.askDate();
@@ -44,9 +46,9 @@ public class EventPlannerController {
     }
 
     public void run() {
-        setDate();
+        new TryUntilSuccess(this::setDate, exceptionView).run();
 
-        setOrder();
+        new TryUntilSuccess(this::setOrder, exceptionView).run();
 
         printResults();
     }
