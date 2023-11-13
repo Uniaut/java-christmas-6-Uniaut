@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.EventPlanner;
+import christmas.domain.MenuItem;
 import christmas.dto.ConsoleInput;
 import christmas.parser.DayDateParser;
 import christmas.parser.OrderParser;
@@ -9,7 +10,7 @@ import christmas.view.InputView;
 import christmas.view.OutputView;
 import christmas.view.io.ConsoleIO;
 import java.util.Calendar;
-import java.util.Map;
+import java.util.List;
 
 public class EventPlannerController {
     EventPlanner eventPlanner = new EventPlanner();
@@ -34,7 +35,7 @@ public class EventPlannerController {
         ConsoleInput input = inputView.askOrder();
 
         OrderParser orderParser = new OrderParser();
-        Map<String, Integer> order = orderParser.parse(input.input());
+        List<MenuItem> order = orderParser.parse(input.input());
 
         eventPlanner.setOrder(order);
     }

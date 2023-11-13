@@ -35,8 +35,12 @@ public class EventPlanner {
         this.date = date;
     }
 
-    public void setOrder(Map<String, Integer> order) {
-        this.order = order;
+    public void setOrder(List<MenuItem> order) {
+        this.order = order.stream().collect(
+                HashMap::new,
+                (map, item) -> map.put(item.name(), item.quantity()),
+                HashMap::putAll
+        );
     }
 
     public Calendar getDate() {

@@ -5,8 +5,7 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -36,9 +35,10 @@ public class EventPlannerTest {
     @DisplayName("setOrder는 올바른 주문을 입력받으면 예외가 발생하지 않는다.")
     @Test
     void setOrderValid() {
-        Map<String, Integer> order = new HashMap<>();
-        order.put("타파스", 1);
-        order.put("제로콜라", 1);
+        List<MenuItem> order = List.of(
+                new MenuItem("타파스", 1),
+                new MenuItem("제로콜라", 1)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
 
@@ -50,9 +50,10 @@ public class EventPlannerTest {
     @DisplayName("getOrders는 입력받은 주문을 반환한다.")
     @Test
     void getOrders() {
-        Map<String, Integer> order = new HashMap<>();
-        order.put("타파스", 1);
-        order.put("제로콜라", 1);
+        List<MenuItem> order = List.of(
+                new MenuItem("타파스", 1),
+                new MenuItem("제로콜라", 1)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
         eventPlanner.setOrder(order);
@@ -65,9 +66,10 @@ public class EventPlannerTest {
     @DisplayName("getTotalCost는 올바른 주문이 주어지면 값을 반환한다.")
     @Test
     void getTotalCostValid() {
-        Map<String, Integer> order = new HashMap<>();
-        order.put("타파스", 1);
-        order.put("제로콜라", 1);
+        List<MenuItem> order = List.of(
+                new MenuItem("타파스", 1),
+                new MenuItem("제로콜라", 1)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
         eventPlanner.setOrder(order);
@@ -82,9 +84,10 @@ public class EventPlannerTest {
         Calendar dec30 = Calendar.getInstance();
         dec30.set(2023, Calendar.DECEMBER, 30);
 
-        Map<String, Integer> order = new HashMap<>();
-        order.put("초코케이크", 2);
-        order.put("제로콜라", 1);
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("제로콜라", 1)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
         eventPlanner.setDate(dec30);
@@ -101,9 +104,10 @@ public class EventPlannerTest {
         Calendar dec30 = Calendar.getInstance();
         dec30.set(2023, Calendar.DECEMBER, 30);
 
-        Map<String, Integer> order = new HashMap<>();
-        order.put("초코케이크", 2);
-        order.put("제로콜라", 1);
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("제로콜라", 1)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
         eventPlanner.setDate(dec30);
@@ -117,9 +121,10 @@ public class EventPlannerTest {
     @DisplayName("getFreebieBenefit는 샴페인 증정 혜택 금액을 반환한다.")
     @Test
     void getFreebieBenefit() {
-        Map<String, Integer> order = new HashMap<>();
-        order.put("초코케이크", 2);
-        order.put("티본스테이크", 2);
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("티본스테이크", 2)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
         eventPlanner.setOrder(order);
@@ -135,9 +140,10 @@ public class EventPlannerTest {
         Calendar dec30 = Calendar.getInstance();
         dec30.set(2023, Calendar.DECEMBER, 30);
 
-        Map<String, Integer> order = new HashMap<>();
-        order.put("초코케이크", 2);
-        order.put("티본스테이크", 2);
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("티본스테이크", 2)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
         eventPlanner.setDate(dec30);
@@ -153,9 +159,10 @@ public class EventPlannerTest {
         Calendar dec30 = Calendar.getInstance();
         dec30.set(2023, Calendar.DECEMBER, 30);
 
-        Map<String, Integer> order = new HashMap<>();
-        order.put("초코케이크", 2);
-        order.put("티본스테이크", 2);
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("티본스테이크", 2)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
         eventPlanner.setDate(dec30);
@@ -171,9 +178,10 @@ public class EventPlannerTest {
         Calendar dec30 = Calendar.getInstance();
         dec30.set(2023, Calendar.DECEMBER, 30);
 
-        Map<String, Integer> order = new HashMap<>();
-        order.put("초코케이크", 2);
-        order.put("티본스테이크", 2);
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("티본스테이크", 2)
+        );
 
         EventPlanner eventPlanner = new EventPlanner();
         eventPlanner.setDate(dec30);
