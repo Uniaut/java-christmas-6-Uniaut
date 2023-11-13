@@ -18,4 +18,28 @@ public class OrderParserTest {
         assertThat(orderParser.parse(input))
                 .isEqualTo(actual);
     }
+
+    @DisplayName("parse는 쉼표로 구분된 항목이 메뉴명-수량(정수)가 아니라면 예외를 발생시킨다.")
+    @Test
+    void parseWithInvalidFormatInput() {
+        OrderParser orderParser = new OrderParser();
+
+        String input = "타파스,제로콜라-7";
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> orderParser.parse(input)
+        ).withMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("parse는 수량이 1 미만이라면 예외를 발생시킨다.")
+    @Test
+    void parseWithInvalidQuantity() {
+        OrderParser orderParser = new OrderParser();
+
+        String input = "타파스-1,제로콜라-0";
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> orderParser.parse(input)
+        ).withMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
 }
