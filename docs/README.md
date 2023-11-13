@@ -135,7 +135,7 @@
 
 * [x] IO 인터페이스를 구현한다.
     * [x] Calendar 형태로 리턴한다.
-    * [ ] validate를 구현한다.
+    * [x] validate를 구현한다.
         * 정수형(decimal)이다.
         * 1~31 사이이다.
 
