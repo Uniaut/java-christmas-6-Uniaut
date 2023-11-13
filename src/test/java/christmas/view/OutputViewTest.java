@@ -3,10 +3,9 @@ package christmas.view;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.BenefitItem;
-import christmas.domain.OrderItem;
+import christmas.domain.MenuItem;
 import christmas.view.io.MockIO;
 import java.util.List;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -24,13 +23,13 @@ public class OutputViewTest {
     @DisplayName("주문 메뉴를 포맷에 맞게 출력한다.")
     @Test
     void printOrderItems() {
-        List<OrderItem> orderItems = List.of(
-                new OrderItem("타파스", 1),
-                new OrderItem("제로콜라", 1)
+        List<MenuItem> menuItems = List.of(
+                new MenuItem("타파스", 1),
+                new MenuItem("제로콜라", 1)
         );
 
         OutputView outputView = new OutputView(mockIO);
-        outputView.printOrderItems(orderItems);
+        outputView.printOrderItems(menuItems);
 
         assertThat(mockIO.getOutputs())
                 .contains("<주문 메뉴>", "타파스 1개", "제로콜라 1개");
@@ -49,8 +48,8 @@ public class OutputViewTest {
     @DisplayName("증정 메뉴를 포맷에 맞게 출력한다.")
     @Test
     void printFreebieItems() {
-        List<OrderItem> freebieItems = List.of(
-                new OrderItem("샴페인", 1)
+        List<MenuItem> freebieItems = List.of(
+                new MenuItem("샴페인", 1)
         );
 
         OutputView outputView = new OutputView(mockIO);

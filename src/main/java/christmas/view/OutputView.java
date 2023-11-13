@@ -1,7 +1,7 @@
 package christmas.view;
 
 import christmas.domain.BenefitItem;
-import christmas.domain.OrderItem;
+import christmas.domain.MenuItem;
 import christmas.view.io.IO;
 import java.util.Calendar;
 import java.util.List;
@@ -44,9 +44,9 @@ public class OutputView {
         ioInstance.print("");
     }
 
-    public void printOrderItems(List<OrderItem> orderItems) {
+    public void printOrderItems(List<MenuItem> menuItems) {
         ioInstance.print(TITLE_ORDER_ITEMS);
-        for (var item : orderItems) {
+        for (var item : menuItems) {
             ioInstance.print(ORDER_ITEMS_FORMAT.formatted(item.name(), item.quantity()));
         }
         ioInstance.print("");
@@ -58,7 +58,7 @@ public class OutputView {
         ioInstance.print("");
     }
 
-    public void printFreebieItems(List<OrderItem> freebieItems) {
+    public void printFreebieItems(List<MenuItem> freebieItems) {
         ioInstance.print(TITLE_FREEBIE_ITEMS);
         for (var item : freebieItems) {
             ioInstance.print(ORDER_ITEMS_FORMAT.formatted(item.name(), item.quantity()));

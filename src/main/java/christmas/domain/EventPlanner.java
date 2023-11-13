@@ -43,9 +43,9 @@ public class EventPlanner {
         return date;
     }
 
-    public List<OrderItem> getOrderItems() {
+    public List<MenuItem> getOrderItems() {
         return order.entrySet().stream()
-                .map(entry -> new OrderItem(entry.getKey(), entry.getValue()))
+                .map(entry -> new MenuItem(entry.getKey(), entry.getValue()))
                 .toList();
     }
 
@@ -67,9 +67,9 @@ public class EventPlanner {
         return 0;
     }
 
-    public List<OrderItem> getFreebieItems() {
+    public List<MenuItem> getFreebieItems() {
         if (getTotalCost() >= 120000) {
-            return List.of(new OrderItem("샴페인", 1));
+            return List.of(new MenuItem("샴페인", 1));
         }
         return List.of();
     }

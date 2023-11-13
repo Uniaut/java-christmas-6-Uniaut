@@ -58,8 +58,8 @@ public class EventPlannerTest {
         eventPlanner.setOrder(order);
 
         assertThat(eventPlanner.getOrderItems())
-                .contains(new OrderItem("타파스", 1))
-                .contains(new OrderItem("제로콜라", 1));
+                .contains(new MenuItem("타파스", 1))
+                .contains(new MenuItem("제로콜라", 1));
     }
 
     @DisplayName("getTotalCost는 올바른 주문이 주어지면 값을 반환한다.")
