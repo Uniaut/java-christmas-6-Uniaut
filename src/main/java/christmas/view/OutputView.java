@@ -3,9 +3,13 @@ package christmas.view;
 import christmas.domain.BenefitItem;
 import christmas.domain.OrderItem;
 import christmas.view.io.IO;
+import java.util.Calendar;
 import java.util.List;
 
 public class OutputView {
+    private static final String TITLE_WELCOME = "우테코 식당 12월 이벤트 플래너입니다.";
+    private static final String INTRO_DATE_FORMAT = "%d월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
+
     private static final String TITLE_ORDER_ITEMS = "<주문 메뉴>";
     private static final String ORDER_ITEMS_FORMAT = "%s %d개";
 
@@ -29,6 +33,15 @@ public class OutputView {
 
     public OutputView(IO ioInstance) {
         this.ioInstance = ioInstance;
+    }
+
+    public void printWelcome() {
+        ioInstance.print(TITLE_WELCOME);
+    }
+
+    public void printIntroDate(Calendar date) {
+        ioInstance.print(INTRO_DATE_FORMAT.formatted(date.get(Calendar.MONTH) + 1, date.get(Calendar.DAY_OF_MONTH)));
+        ioInstance.print("");
     }
 
     public void printOrderItems(List<OrderItem> orderItems) {

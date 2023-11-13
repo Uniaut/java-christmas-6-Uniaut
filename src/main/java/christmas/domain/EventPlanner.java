@@ -25,6 +25,7 @@ public class EventPlanner {
         menuCost.put("티본스테이크", 55000);
         menuCost.put("바비큐립", 54000);
         menuCost.put("해산물파스타", 35000);
+        menuCost.put("샴페인", 25000);
     }
 
     public void setDate(Calendar date) {
@@ -36,6 +37,10 @@ public class EventPlanner {
 
     public void setOrder(Map<String, Integer> order) {
         this.order = order;
+    }
+
+    public Calendar getDate() {
+        return date;
     }
 
     public List<OrderItem> getOrderItems() {

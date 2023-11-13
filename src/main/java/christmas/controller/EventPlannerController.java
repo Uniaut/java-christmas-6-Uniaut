@@ -17,6 +17,10 @@ public class EventPlannerController {
     OutputView outputView = new OutputView(new ConsoleIO());
     ExceptionView exceptionView = new ExceptionView(new ConsoleIO());
 
+    private void printWelcome() {
+        outputView.printWelcome();
+    }
+
     private void setDate() {
         ConsoleInput input = inputView.askDate();
 
@@ -36,6 +40,7 @@ public class EventPlannerController {
     }
 
     private void printResults() {
+        outputView.printIntroDate(eventPlanner.getDate());
         outputView.printOrderItems(eventPlanner.getOrderItems());
         outputView.printTotalPrice(eventPlanner.getTotalCost());
         outputView.printFreebieItems(eventPlanner.getFreebieItems());
@@ -46,6 +51,8 @@ public class EventPlannerController {
     }
 
     public void run() {
+        printWelcome();
+
         new TryUntilSuccess(this::setDate, exceptionView).run();
 
         new TryUntilSuccess(this::setOrder, exceptionView).run();
