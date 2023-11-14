@@ -41,7 +41,31 @@ public class EventPlanner {
         this.date = date;
     }
 
+    private void validateOrder(List<MenuItem> order) {
+        if (order == null) {
+            throw new IllegalArgumentException("[ERROR] order is null");
+        }
+        if (order.isEmpty()) {
+            throw new IllegalArgumentException("[ERROR] order is empty");
+        }
+
+        boolean isNotValidMenu = order.stream()
+                .anyMatch(menu -> !menuCost.containsKey(menu.name()));
+        if (isNotValidMenu) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해주세요.");
+        }
+
+        long distinctSize = order.stream()
+                .map(MenuItem::name)
+                .distinct()
+                .count();
+        if (order.size() != distinctSize) {
+            throw new IllegalArgumentException("[ERROR] 중복된 주문이 있습니다. 다시 입력해주세요.");
+        }
+    }
+
     public void setOrder(List<MenuItem> order) {
+        validateOrder(order);
         this.order = order.stream().collect(
                 HashMap::new,
                 (map, item) -> map.put(item.name(), item.quantity()),
