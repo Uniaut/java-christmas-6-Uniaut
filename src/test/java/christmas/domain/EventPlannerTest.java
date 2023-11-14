@@ -31,6 +31,17 @@ public class EventPlannerTest {
         ).withMessageContaining("[ERROR]");
     }
 
+    @DisplayName("setDate는 2023년 12월이 아닌 날짜를 입력받으면 예외가 발생한다.")
+    @Test
+    void setDateWithInvalidDate() {
+        LocalDate lastYearChristmas = LocalDate.of(2022, 12, 25);
+        EventPlanner eventPlanner = new EventPlanner();
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> eventPlanner.setDate(lastYearChristmas)
+        ).withMessageContaining("[ERROR]");
+    }
+
     @DisplayName("setOrder는 올바른 주문을 입력받으면 예외가 발생하지 않는다.")
     @Test
     void setOrderValid() {
