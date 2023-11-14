@@ -74,6 +74,18 @@
 
 # 클래스 디자인 / TODO
 
+## 전반
+
+* [x] 리팩토링: `Calendar`를 `LocalDate` 타입으로 수정한다.
+
+## DTO
+
+* [ ] `MenuItems`
+    * [ ] `MenuItem` : 패키지 위치 옮기기
+* [ ] `BenefitItems`
+    * [ ] 'BenefitItem` : 패키지 위치 옮기기
+* [ ] `ReservationDate`
+
 ## Model
 
 * [ ] Menu를 Enum 형식으로 저장할 수 있도록 리팩토링한다.
@@ -137,7 +149,7 @@
 ### DayDateParser
 
 * [x] IO 인터페이스를 구현한다.
-    * [x] Calendar 형태로 리턴한다.
+    * [x] LocalDate 형태로 리턴한다.
     * [x] validate를 구현한다.
         * 정수형(decimal)이다.
         * 1~31 사이이다.
@@ -180,3 +192,7 @@
 * [x] 총 혜택 금액을 출력한다
 * [x] 할인 후 예상 결제 금액을 출력한다
 * [x] 12월 이벤트 배지를 출력한다
+
+### ExceptionView
+
+* [x] 예외 메시지를 출력한다

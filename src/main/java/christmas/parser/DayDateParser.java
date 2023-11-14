@@ -1,13 +1,13 @@
 package christmas.parser;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 
-public class DayDateParser implements Parser<Calendar>{
+public class DayDateParser implements Parser<LocalDate>{
     private static final Integer MIN_DAY = 1;
     private static final Integer MAX_DAY = 31;
 
     private static final Integer YEAR = 2023;
-    private static final Integer MONTH = Calendar.DECEMBER;
+    private static final Integer MONTH = 12;
 
     private int parseInt(String input) {
         try {
@@ -24,14 +24,12 @@ public class DayDateParser implements Parser<Calendar>{
     }
 
     @Override
-    public Calendar parse(String input) {
+    public LocalDate parse(String input) {
         // TODO: add validation feature
         int day = parseInt(input);
 
         validateDayInRange(day);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(YEAR, MONTH, day);
-        return calendar;
+        return LocalDate.of(YEAR, MONTH, day);
     }
 }

@@ -3,7 +3,7 @@ package christmas.view;
 import christmas.domain.BenefitItem;
 import christmas.domain.MenuItem;
 import christmas.view.io.IO;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 public class OutputView {
@@ -39,8 +39,8 @@ public class OutputView {
         ioInstance.print(TITLE_WELCOME);
     }
 
-    public void printIntroDate(Calendar date) {
-        ioInstance.print(INTRO_DATE_FORMAT.formatted(date.get(Calendar.MONTH) + 1, date.get(Calendar.DAY_OF_MONTH)));
+    public void printIntroDate(LocalDate date) {
+        ioInstance.print(INTRO_DATE_FORMAT.formatted(date.getMonthValue(), date.getDayOfMonth()));
         ioInstance.print("");
     }
 

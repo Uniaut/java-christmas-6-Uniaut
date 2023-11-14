@@ -9,7 +9,7 @@ import christmas.view.ExceptionView;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 import christmas.view.io.ConsoleIO;
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 
 public class EventPlannerController {
@@ -26,7 +26,7 @@ public class EventPlannerController {
         ConsoleInput input = inputView.askDate();
 
         DayDateParser dayDateParser = new DayDateParser();
-        Calendar date = dayDateParser.parse(input.input());
+        LocalDate date = dayDateParser.parse(input.input());
 
         eventPlanner.setDate(date);
     }

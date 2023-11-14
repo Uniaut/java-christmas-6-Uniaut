@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 
-import java.util.Calendar;
+import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,8 +13,7 @@ public class EventPlannerTest {
     @DisplayName("setDate는 올바른 날짜를 입력받으면 예외가 발생하지 않는다.")
     @Test
     void setDateValid() {
-        Calendar christmas = Calendar.getInstance();
-        christmas.set(2023, Calendar.DECEMBER, 25);
+        LocalDate christmas = LocalDate.of(2023, 12, 25);
         EventPlanner eventPlanner = new EventPlanner();
 
         assertThatNoException().isThrownBy(
@@ -81,8 +80,7 @@ public class EventPlannerTest {
     @DisplayName("getWeekendBenefit에 12월 30일의 이벤트인 주말 할인이 적용된다.")
     @Test
     void getWeekendBenefit() {
-        Calendar dec30 = Calendar.getInstance();
-        dec30.set(2023, Calendar.DECEMBER, 30);
+        LocalDate dec30 = LocalDate.of(2023, 12, 30);
 
         List<MenuItem> order = List.of(
                 new MenuItem("초코케이크", 2),
@@ -101,8 +99,7 @@ public class EventPlannerTest {
     @DisplayName("getBenefitItems는 혜택 내역들을 반환한다.")
     @Test
     void getBenefitItems() {
-        Calendar dec30 = Calendar.getInstance();
-        dec30.set(2023, Calendar.DECEMBER, 30);
+        LocalDate dec30 = LocalDate.of(2023, 12, 30);
 
         List<MenuItem> order = List.of(
                 new MenuItem("초코케이크", 2),
@@ -137,8 +134,7 @@ public class EventPlannerTest {
     @DisplayName("getBenefitTotal는 총혜택 금액을 반환한다. 증정을 포함한다.")
     @Test
     void getBenefitTotal() {
-        Calendar dec30 = Calendar.getInstance();
-        dec30.set(2023, Calendar.DECEMBER, 30);
+        LocalDate dec30 = LocalDate.of(2023, 12, 30);
 
         List<MenuItem> order = List.of(
                 new MenuItem("초코케이크", 2),
@@ -156,8 +152,7 @@ public class EventPlannerTest {
     @DisplayName("getDiscountedTotalCost는 할인 후 예상 결제 금액을 반환한다. 증정은 제외한다.")
     @Test
     void getTotalCostDiscounted() {
-        Calendar dec30 = Calendar.getInstance();
-        dec30.set(2023, Calendar.DECEMBER, 30);
+        LocalDate dec30 = LocalDate.of(2023, 12, 30);
 
         List<MenuItem> order = List.of(
                 new MenuItem("초코케이크", 2),
@@ -175,8 +170,7 @@ public class EventPlannerTest {
     @DisplayName("getBadge는 올바른 주문이 주어지면 해당하는 뱃지를 반환한다.")
     @Test
     void getBadge() {
-        Calendar dec30 = Calendar.getInstance();
-        dec30.set(2023, Calendar.DECEMBER, 30);
+        LocalDate dec30 = LocalDate.of(2023, 12, 30);
 
         List<MenuItem> order = List.of(
                 new MenuItem("초코케이크", 2),

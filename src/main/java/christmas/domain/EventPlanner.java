@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 public class EventPlanner {
-    private Calendar date;
+    private LocalDate date;
     private Map<String, Integer> order;
 
     private final Map<String, Integer> menuCost;
@@ -28,7 +29,7 @@ public class EventPlanner {
         menuCost.put("샴페인", 25000);
     }
 
-    public void setDate(Calendar date) {
+    public void setDate(LocalDate date) {
         if (date == null) {
             throw new IllegalArgumentException("[ERROR] date is null");
         }
@@ -43,7 +44,7 @@ public class EventPlanner {
         );
     }
 
-    public Calendar getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
@@ -60,8 +61,7 @@ public class EventPlanner {
     }
 
     public int getWeekendBenefit() {
-        List<Integer> weekend = List.of(Calendar.SATURDAY, Calendar.SUNDAY);
-        if (weekend.contains(date.get(Calendar.DAY_OF_WEEK))) {
+        if (date.getDayOfMonth() == Calendar.SATURDAY || date.getDayOfMonth() == Calendar.SUNDAY) {
             int numberDessert = order.entrySet().stream()
                     .filter(menu -> dessert.contains(menu.getKey()))
                     .mapToInt(Entry::getValue)
