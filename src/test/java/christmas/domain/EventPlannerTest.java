@@ -168,6 +168,24 @@ public class EventPlannerTest {
                 .isEqualTo(8500);
     }
 
+    @DisplayName("getWeekdayBenefit에 12월 13일의 이벤트인 평일 할인이 적용된다.")
+    @Test
+    void getWeekdayBenefit() {
+        LocalDate dec13 = LocalDate.of(2023, 12, 13);
+
+        List<MenuItem> order = List.of(
+                new MenuItem("티본스테이크", 2),
+                new MenuItem("제로콜라", 1)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setDate(dec13);
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getWeekdayBenefit())
+                .isEqualTo(2023 * 2);
+    }
+
     @DisplayName("getWeekendBenefit에 12월 30일의 이벤트인 주말 할인이 적용된다.")
     @Test
     void getWeekendBenefit() {
@@ -204,6 +222,60 @@ public class EventPlannerTest {
         assertThat(eventPlanner.getBenefitItems())
                 .contains(new BenefitItem("주말 할인", 2023 * 2));
 
+    }
+
+    @DisplayName("getChristmasBenefit는 24일에 3300을 반환한다.")
+    @Test
+    void getChristmasBenefitChristmasEve() {
+        LocalDate christmasEve = LocalDate.of(2023, 12, 25);
+
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("제로콜라", 1)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setDate(christmasEve);
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getChristmasBenefit())
+                .isEqualTo(3400);
+    }
+
+    @DisplayName("getChristmasBenefit는 크리스마스 이후에 0을 반환한다.")
+    @Test
+    void getChristmasBenefitAfterChristmas() {
+        LocalDate afterChristmas = LocalDate.of(2023, 12, 26);
+
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("제로콜라", 1)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setDate(afterChristmas);
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getChristmasBenefit())
+                .isEqualTo(0);
+    }
+
+    @DisplayName("getSpecialBenefit는 크리스마스에 1000을 반환한다.")
+    @Test
+    void getSpecialBenefitChristmas() {
+        LocalDate christmas = LocalDate.of(2023, 12, 25);
+
+        List<MenuItem> order = List.of(
+                new MenuItem("초코케이크", 2),
+                new MenuItem("제로콜라", 1)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setDate(christmas);
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getSpecialBenefit())
+                .isEqualTo(1000);
     }
 
     @DisplayName("getFreebieBenefit는 샴페인 증정 혜택 금액을 반환한다.")
