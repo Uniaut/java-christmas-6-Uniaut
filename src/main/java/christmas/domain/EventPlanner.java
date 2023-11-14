@@ -18,6 +18,7 @@ public class EventPlanner {
 
     private final List<String> dessert = List.of("초코케이크", "아이스크림");
     private final List<String> mainDish = List.of("티본스테이크", "바비큐립", "해산물파스타");
+    private final List<String> beverage = List.of("제로콜라", "레드와인", "샴페인");
 
     public EventPlanner() {
         menuCost = new HashMap<>();
@@ -41,6 +42,21 @@ public class EventPlanner {
         this.date = date;
     }
 
+    private void validateOrderComposition(List<MenuItem> order) {
+        int numberTotalMenu = order.stream()
+                .mapToInt(MenuItem::quantity)
+                .sum();
+        if (numberTotalMenu > 20) {
+            throw new IllegalArgumentException("[ERROR] 한 번에 %d개까지만 주문할 수 있습니다.".formatted(20));
+        }
+
+        boolean isOnlyBeverage = order.stream()
+                .allMatch(menuItem -> beverage.contains(menuItem.name()));
+        if (isOnlyBeverage) {
+            throw new IllegalArgumentException("[ERROR] 음료만 주문할 수 없습니다.");
+        }
+    }
+
     private void validateOrder(List<MenuItem> order) {
         if (order == null) {
             throw new IllegalArgumentException("[ERROR] order is null");
@@ -62,6 +78,8 @@ public class EventPlanner {
         if (order.size() != distinctSize) {
             throw new IllegalArgumentException("[ERROR] 중복된 주문이 있습니다. 다시 입력해주세요.");
         }
+
+        validateOrderComposition(order);
     }
 
     public void setOrder(List<MenuItem> order) {
