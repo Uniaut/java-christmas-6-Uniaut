@@ -10,6 +10,8 @@ import java.util.Map.Entry;
 
 public class EventPlanner {
     private LocalDate date;
+    private final LocalDate DEC_01 = LocalDate.of(2023, 12, 1);
+    private final LocalDate DEC_31 = LocalDate.of(2023, 12, 31);
     private Map<String, Integer> order;
 
     private final Map<String, Integer> menuCost;
@@ -32,6 +34,9 @@ public class EventPlanner {
     public void setDate(LocalDate date) {
         if (date == null) {
             throw new IllegalArgumentException("[ERROR] date is null");
+        }
+        if (date.isBefore(DEC_01) || date.isAfter(DEC_31)) {
+            throw new IllegalArgumentException("[ERROR] date is not in December, 2023");
         }
         this.date = date;
     }
