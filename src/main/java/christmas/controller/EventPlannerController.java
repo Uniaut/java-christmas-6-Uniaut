@@ -13,10 +13,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class EventPlannerController {
+    ConsoleIO consoleIO = new ConsoleIO();
     EventPlanner eventPlanner = new EventPlanner();
-    InputView inputView = new InputView(new ConsoleIO());
-    OutputView outputView = new OutputView(new ConsoleIO());
-    ExceptionView exceptionView = new ExceptionView(new ConsoleIO());
+    InputView inputView = new InputView(consoleIO);
+    OutputView outputView = new OutputView(consoleIO);
+    ExceptionView exceptionView = new ExceptionView(consoleIO);
 
     private void printWelcome() {
         outputView.printWelcome();
