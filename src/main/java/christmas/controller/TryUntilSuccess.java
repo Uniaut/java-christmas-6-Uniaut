@@ -16,7 +16,7 @@ public class TryUntilSuccess {
             try {
                 runnable.run();
                 return;
-            } catch (Exception e) {
+            } catch (IllegalArgumentException e) {
                 exceptionView.printExceptionMessage(e);
             }
         }
