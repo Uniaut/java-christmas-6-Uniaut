@@ -57,6 +57,57 @@ public class EventPlannerTest {
         );
     }
 
+    @DisplayName("setOrder는 null을 입력받으면 예외가 발생한다.")
+    @Test
+    void setOrderWithNull() {
+        EventPlanner eventPlanner = new EventPlanner();
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> eventPlanner.setOrder(null)
+        ).withMessageContaining("[ERROR]");
+    }
+
+    @DisplayName("setOrder는 빈 주문을 입력받으면 예외가 발생한다.")
+    @Test
+    void setOrderWithEmpty() {
+        List<MenuItem> order = List.of();
+
+        EventPlanner eventPlanner = new EventPlanner();
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> eventPlanner.setOrder(order)
+        ).withMessageContaining("[ERROR]");
+    }
+
+    @DisplayName("setOrder는 유효하지 않은 메뉴를 입력받으면 예외가 발생한다.")
+    @Test
+    void setOrderWithInvalidMenu() {
+        List<MenuItem> order = List.of(
+                new MenuItem("없는메뉴", 1)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> eventPlanner.setOrder(order)
+        ).withMessageContaining("[ERROR]");
+    }
+
+    @DisplayName("setOrder는 중복된 메뉴를 입력받으면 예외가 발생한다.")
+    @Test
+    void setOrderWithDuplicatedMenu() {
+        List<MenuItem> order = List.of(
+                new MenuItem("타파스", 1),
+                new MenuItem("타파스", 2)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> eventPlanner.setOrder(order)
+        ).withMessageContaining("[ERROR]");
+    }
+
     @DisplayName("getOrders는 입력받은 주문을 반환한다.")
     @Test
     void getOrders() {
