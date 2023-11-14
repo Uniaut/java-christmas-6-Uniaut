@@ -312,6 +312,23 @@ public class EventPlannerTest {
                 .isEqualTo(2023 * 2 + 25000);
     }
 
+    @DisplayName("모든 혜택은 총주문 금액 10000원 미만에는 적용되지 않는다")
+    @Test
+    void getBenefitTotalWithLessThan10000() {
+        LocalDate christmas = LocalDate.of(2023, 12, 25);
+
+        List<MenuItem> order = List.of(
+                new MenuItem("타파스", 1)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+        eventPlanner.setDate(christmas);
+        eventPlanner.setOrder(order);
+
+        assertThat(eventPlanner.getBenefitTotal())
+                .isEqualTo(0);
+    }
+
     @DisplayName("getDiscountedTotalCost는 할인 후 예상 결제 금액을 반환한다. 증정은 제외한다.")
     @Test
     void getTotalCostDiscounted() {
