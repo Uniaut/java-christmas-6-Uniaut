@@ -1,8 +1,8 @@
 package christmas.domain;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -61,7 +61,7 @@ public class EventPlanner {
     }
 
     public int getWeekendBenefit() {
-        if (date.getDayOfMonth() == Calendar.SATURDAY || date.getDayOfMonth() == Calendar.SUNDAY) {
+        if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
             int numberDessert = order.entrySet().stream()
                     .filter(menu -> dessert.contains(menu.getKey()))
                     .mapToInt(Entry::getValue)
