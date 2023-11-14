@@ -179,6 +179,10 @@ public class EventPlanner {
 
     public List<BenefitItem> getBenefitItems() {
         List<BenefitItem> items = new ArrayList<>();
+        
+        if (getTotalCost() < 10000) {
+            return items;
+        }
 
         BenefitItem weekend = new BenefitItem("주말 할인", getWeekendBenefit());
         if (weekend.amount() != 0) {
