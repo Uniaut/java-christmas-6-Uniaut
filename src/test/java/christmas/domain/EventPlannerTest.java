@@ -108,6 +108,35 @@ public class EventPlannerTest {
         ).withMessageContaining("[ERROR]");
     }
 
+    @DisplayName("setOrder는 음료만 주문할 경우 예외가 발생한다.")
+    @Test
+    void setOrderWithOnlyBeverage() {
+        List<MenuItem> order = List.of(
+                new MenuItem("제로콜라", 1)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> eventPlanner.setOrder(order)
+        ).withMessageContaining("[ERROR]");
+    }
+
+    @DisplayName("setOrder는 총 수량이 20개를 초과할 경우 예외가 발생한다.")
+    @Test
+    void setOrderWithOverQuantity() {
+        List<MenuItem> order = List.of(
+                new MenuItem("타파스", 11),
+                new MenuItem("제로콜라", 11)
+        );
+
+        EventPlanner eventPlanner = new EventPlanner();
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> eventPlanner.setOrder(order)
+        ).withMessageContaining("[ERROR]");
+    }
+
     @DisplayName("getOrders는 입력받은 주문을 반환한다.")
     @Test
     void getOrders() {
