@@ -2,6 +2,8 @@ package christmas.domain;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.chrono.ChronoPeriod;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,23 +14,31 @@ public class EventPlanner {
     private LocalDate date;
     private final LocalDate DEC_01 = LocalDate.of(2023, 12, 1);
     private final LocalDate DEC_31 = LocalDate.of(2023, 12, 31);
+    private final LocalDate CHRISTMAS = LocalDate.of(2023, 12, 25);
+
     private Map<String, Integer> order;
 
     private final Map<String, Integer> menuCost;
 
+    private final List<String> appetizer = List.of("타파스", "양송이수프", "시저샐러드");
     private final List<String> dessert = List.of("초코케이크", "아이스크림");
-    private final List<String> mainDish = List.of("티본스테이크", "바비큐립", "해산물파스타");
+    private final List<String> mainDish = List.of("티본스테이크", "바비큐립", "해산물파스타", "크리스마스파스타");
     private final List<String> beverage = List.of("제로콜라", "레드와인", "샴페인");
+
 
     public EventPlanner() {
         menuCost = new HashMap<>();
+        menuCost.put("양송이수프", 6000);
         menuCost.put("타파스", 5500);
-        menuCost.put("제로콜라", 3000);
-        menuCost.put("초코케이크", 15000);
-        menuCost.put("아이스크림", 5000);
+        menuCost.put("시저샐러드", 8000);
         menuCost.put("티본스테이크", 55000);
         menuCost.put("바비큐립", 54000);
         menuCost.put("해산물파스타", 35000);
+        menuCost.put("크리스마스파스타", 25000);
+        menuCost.put("초코케이크", 15000);
+        menuCost.put("아이스크림", 5000);
+        menuCost.put("제로콜라", 3000);
+        menuCost.put("레드와인", 60000);
         menuCost.put("샴페인", 25000);
     }
 
@@ -108,9 +118,22 @@ public class EventPlanner {
     }
 
     public int getWeekendBenefit() {
-        if (date.getDayOfWeek() == DayOfWeek.SATURDAY || date.getDayOfWeek() == DayOfWeek.SUNDAY) {
+        List<DayOfWeek> weekend = List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
+        if (weekend.contains(date.getDayOfWeek())) {
             int numberDessert = order.entrySet().stream()
                     .filter(menu -> dessert.contains(menu.getKey()))
+                    .mapToInt(Entry::getValue)
+                    .sum();
+            return numberDessert * 2023;
+        }
+        return 0;
+    }
+
+    public int getWeekdayBenefit() {
+        List<DayOfWeek> weekday = List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY);
+        if (weekday.contains(date.getDayOfWeek())) {
+            int numberDessert = order.entrySet().stream()
+                    .filter(menu -> mainDish.contains(menu.getKey()))
                     .mapToInt(Entry::getValue)
                     .sum();
             return numberDessert * 2023;
@@ -131,11 +154,52 @@ public class EventPlanner {
                 .sum();
     }
 
+    public int getChristmasBenefit() {
+        int days = (int) ChronoPeriod.between(date, CHRISTMAS).get(ChronoUnit.DAYS);
+        if (days >= 0) {
+            return 3400 - days * 100;
+        }
+        return 0;
+    }
+
+    public int getSpecialBenefit() {
+        List<LocalDate> starDay = List.of(
+                LocalDate.of(2023, 12, 3),
+                LocalDate.of(2023, 12, 10),
+                LocalDate.of(2023, 12, 17),
+                LocalDate.of(2023, 12, 24),
+                LocalDate.of(2023, 12, 25),
+                LocalDate.of(2023, 12, 31)
+        );
+        if (starDay.contains(date)) {
+            return 1000;
+        }
+        return 0;
+    }
+
     public List<BenefitItem> getBenefitItems() {
         List<BenefitItem> items = new ArrayList<>();
 
-        items.add(new BenefitItem("주말 할인", getWeekendBenefit()));
-        items.add(new BenefitItem("증정 이벤트", getFreebieBenefit()));
+        BenefitItem weekend = new BenefitItem("주말 할인", getWeekendBenefit());
+        if (weekend.amount() != 0) {
+            items.add(weekend);
+        }
+        BenefitItem freebie = new BenefitItem("증정 이벤트", getFreebieBenefit());
+        if (freebie.amount() != 0) {
+            items.add(freebie);
+        }
+        BenefitItem christmas = new BenefitItem("크리스마스 할인", getChristmasBenefit());
+        if (christmas.amount() != 0) {
+            items.add(christmas);
+        }
+        BenefitItem weekday = new BenefitItem("주중 할인", getWeekdayBenefit());
+        if (weekday.amount() != 0) {
+            items.add(weekday);
+        }
+        BenefitItem special = new BenefitItem("특별 할인", getSpecialBenefit());
+        if (special.amount() != 0) {
+            items.add(special);
+        }
 
         return items;
     }
