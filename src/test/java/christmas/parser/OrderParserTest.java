@@ -1,8 +1,10 @@
 package christmas.parser;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
-import java.util.Map;
+import christmas.domain.MenuItem;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +15,10 @@ public class OrderParserTest {
         OrderParser orderParser = new OrderParser();
 
         String input = "타파스-1,제로콜라-1";
-        Map<String, Integer> actual = Map.of("타파스", 1, "제로콜라", 1);
+        List<MenuItem> actual = List.of(
+                new MenuItem("타파스", 1),
+                new MenuItem("제로콜라", 1)
+        );
 
         assertThat(orderParser.parse(input))
                 .isEqualTo(actual);
