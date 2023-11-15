@@ -8,11 +8,10 @@ import java.util.Map;
 
 public class EventPlanner {
     private LocalDate date;
-    private final LocalDate DEC_01 = LocalDate.of(2023, 12, 1);
-    private final LocalDate DEC_31 = LocalDate.of(2023, 12, 31);
-
     private Map<String, Integer> order;
 
+    private final LocalDate DEC_01 = LocalDate.of(2023, 12, 1);
+    private final LocalDate DEC_31 = LocalDate.of(2023, 12, 31);
     private final List<String> beverage = List.of("제로콜라", "레드와인", "샴페인");
     private static final Map<String, Integer> menuCost = new HashMap<>();
 
