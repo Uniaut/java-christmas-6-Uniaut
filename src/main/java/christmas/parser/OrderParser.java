@@ -2,7 +2,7 @@ package christmas.parser;
 
 import christmas.constant.ExceptionMessage;
 import christmas.domain.Menu;
-import christmas.domain.MenuItem;
+import christmas.dto.MenuItem;
 import java.util.List;
 
 public class OrderParser {

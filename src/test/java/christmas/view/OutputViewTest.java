@@ -2,9 +2,9 @@ package christmas.view;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import christmas.domain.BenefitItem;
+import christmas.dto.BenefitItem;
 import christmas.domain.Menu;
-import christmas.domain.MenuItem;
+import christmas.dto.MenuItem;
 import christmas.view.io.MockIO;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;

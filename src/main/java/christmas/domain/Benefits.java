@@ -1,5 +1,7 @@
 package christmas.domain;
 
+import christmas.dto.BenefitItem;
+import christmas.dto.MenuItem;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.chrono.ChronoPeriod;

@@ -1,7 +1,7 @@
 package christmas.view;
 
-import christmas.domain.BenefitItem;
-import christmas.domain.MenuItem;
+import christmas.dto.BenefitItem;
+import christmas.dto.MenuItem;
 import christmas.view.io.IO;
 import java.time.LocalDate;
 import java.util.List;

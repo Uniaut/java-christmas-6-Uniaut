@@ -1,6 +1,8 @@
 package christmas.domain;
 
 import christmas.constant.ExceptionMessage;
+import christmas.dto.BenefitItem;
+import christmas.dto.MenuItem;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;

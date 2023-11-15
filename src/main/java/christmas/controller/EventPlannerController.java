@@ -1,7 +1,7 @@
 package christmas.controller;
 
 import christmas.domain.EventPlanner;
-import christmas.domain.MenuItem;
+import christmas.dto.MenuItem;
 import christmas.dto.ConsoleInput;
 import christmas.parser.DayDateParser;
 import christmas.parser.OrderParser;

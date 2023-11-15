@@ -200,7 +200,7 @@
 
 ## Model
 
-* [ ] `Menu`를 Enum 형식으로 저장할 수 있도록 리팩토링한다.
+* [x] `Menu`를 Enum 형식으로 저장할 수 있도록 리팩토링한다.
 * [ ] 혜택을 `Benefit`으로 저장하고, 증정과 할인의 타입을 분리한다.
     * [ ] `Benefit`에 `type`을 추가한다. `Discount`와 `Freebie`를 받는다.
 * [ ] `Badge`: `enum`으로 만든다.
