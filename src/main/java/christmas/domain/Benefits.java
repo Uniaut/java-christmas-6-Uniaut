@@ -108,6 +108,12 @@ public class Benefits {
         return 0;
     }
 
+    private void addBenefitItem(List<BenefitItem> items, String name, int amount) {
+        if (amount != 0) {
+            items.add(new BenefitItem(name, amount));
+        }
+    }
+
     public List<BenefitItem> getBenefitItems() {
         List<BenefitItem> items = new ArrayList<>();
 
@@ -115,26 +121,11 @@ public class Benefits {
             return items;
         }
 
-        BenefitItem weekday = new BenefitItem("평일 할인", getWeekdayBenefit());
-        if (weekday.amount() != 0) {
-            items.add(weekday);
-        }
-        BenefitItem weekend = new BenefitItem("주말 할인", getWeekendBenefit());
-        if (weekend.amount() != 0) {
-            items.add(weekend);
-        }
-        BenefitItem freebie = new BenefitItem("증정 이벤트", getFreebieBenefit());
-        if (freebie.amount() != 0) {
-            items.add(freebie);
-        }
-        BenefitItem christmas = new BenefitItem("크리스마스 디데이 할인", getChristmasBenefit());
-        if (christmas.amount() != 0) {
-            items.add(christmas);
-        }
-        BenefitItem special = new BenefitItem("특별 할인", getSpecialBenefit());
-        if (special.amount() != 0) {
-            items.add(special);
-        }
+        addBenefitItem(items, "평일 할인", getWeekdayBenefit());
+        addBenefitItem(items, "주말 할인", getWeekendBenefit());
+        addBenefitItem(items, "증정 이벤트", getFreebieBenefit());
+        addBenefitItem(items, "크리스마스 디데이 할인", getChristmasBenefit());
+        addBenefitItem(items, "특별 할인", getSpecialBenefit());
 
         return items;
     }
