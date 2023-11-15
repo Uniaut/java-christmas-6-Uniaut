@@ -3,6 +3,7 @@ package christmas.view;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import christmas.domain.BenefitItem;
+import christmas.domain.Menu;
 import christmas.domain.MenuItem;
 import christmas.view.io.MockIO;
 import java.util.List;
@@ -24,8 +25,8 @@ public class OutputViewTest {
     @Test
     void printOrderItems() {
         List<MenuItem> menuItems = List.of(
-                new MenuItem("타파스", 1),
-                new MenuItem("제로콜라", 1)
+                new MenuItem(Menu.TAPAS, 1),
+                new MenuItem(Menu.ZERO_COLA, 1)
         );
 
         OutputView outputView = new OutputView(mockIO);
@@ -49,7 +50,7 @@ public class OutputViewTest {
     @Test
     void printFreebieItems() {
         List<MenuItem> freebieItems = List.of(
-                new MenuItem("샴페인", 1)
+                new MenuItem(Menu.CHAMPAGNE, 1)
         );
 
         OutputView outputView = new OutputView(mockIO);

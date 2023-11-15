@@ -1,6 +1,7 @@
 package christmas.parser;
 
 import christmas.constant.ExceptionMessage;
+import christmas.domain.Menu;
 import christmas.domain.MenuItem;
 import java.util.List;
 
@@ -29,7 +30,12 @@ public class OrderParser {
 
         validateQuantity(quantity);
 
-        return new MenuItem(name, quantity);
+        try {
+            Menu menu = Menu.findByName(name);
+            return new MenuItem(menu, quantity);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
+        }
     }
 
     public List<MenuItem> parse(String input) {

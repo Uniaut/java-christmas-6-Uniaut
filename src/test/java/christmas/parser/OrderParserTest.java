@@ -3,6 +3,7 @@ package christmas.parser;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
+import christmas.domain.Menu;
 import christmas.domain.MenuItem;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
@@ -16,8 +17,8 @@ public class OrderParserTest {
 
         String input = "타파스-1,제로콜라-1";
         List<MenuItem> actual = List.of(
-                new MenuItem("타파스", 1),
-                new MenuItem("제로콜라", 1)
+                new MenuItem(Menu.TAPAS, 1),
+                new MenuItem(Menu.ZERO_COLA, 1)
         );
 
         assertThat(orderParser.parse(input))
@@ -30,6 +31,18 @@ public class OrderParserTest {
         OrderParser orderParser = new OrderParser();
 
         String input = "타파스,제로콜라-7";
+
+        assertThatIllegalArgumentException().isThrownBy(
+                () -> orderParser.parse(input)
+        ).withMessage("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+    }
+
+    @DisplayName("parse는 유효하지 않은 메뉴를 입력받으면 예외가 발생한다.")
+    @Test
+    void setOrderWithInvalidMenu() {
+        OrderParser orderParser = new OrderParser();
+
+        String input = "없는메뉴-7";
 
         assertThatIllegalArgumentException().isThrownBy(
                 () -> orderParser.parse(input)

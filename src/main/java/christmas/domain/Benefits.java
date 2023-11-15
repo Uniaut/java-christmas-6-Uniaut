@@ -5,45 +5,24 @@ import java.time.LocalDate;
 import java.time.chrono.ChronoPeriod;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class Benefits {
     private final LocalDate date;
-    private final Map<String, Integer> order;
+    private final Map<Menu, Integer> order;
 
     private final LocalDate CHRISTMAS = LocalDate.of(2023, 12, 25);
-    private final List<String> appetizer = List.of("타파스", "양송이수프", "시저샐러드");
-    private final List<String> dessert = List.of("초코케이크", "아이스크림");
-    private final List<String> mainDish = List.of("티본스테이크", "바비큐립", "해산물파스타", "크리스마스파스타");
 
-    private static final Map<String, Integer> menuCost = new HashMap<>();
-
-    static {
-        menuCost.put("양송이수프", 6000);
-        menuCost.put("타파스", 5500);
-        menuCost.put("시저샐러드", 8000);
-        menuCost.put("티본스테이크", 55000);
-        menuCost.put("바비큐립", 54000);
-        menuCost.put("해산물파스타", 35000);
-        menuCost.put("크리스마스파스타", 25000);
-        menuCost.put("초코케이크", 15000);
-        menuCost.put("아이스크림", 5000);
-        menuCost.put("제로콜라", 3000);
-        menuCost.put("레드와인", 60000);
-        menuCost.put("샴페인", 25000);
-    }
-
-    public Benefits(LocalDate date, Map<String, Integer> order) {
+    public Benefits(LocalDate date, Map<Menu, Integer> order) {
         this.date = date;
         this.order = order;
     }
 
     private int getTotalCost() {
         return order.keySet().stream()
-                .mapToInt(menu -> order.get(menu) * menuCost.get(menu))
+                .mapToInt(menu -> menu.getCost(order.get(menu)))
                 .sum();
     }
 
@@ -51,7 +30,7 @@ public class Benefits {
         List<DayOfWeek> weekend = List.of(DayOfWeek.FRIDAY, DayOfWeek.SATURDAY);
         if (weekend.contains(date.getDayOfWeek())) {
             int numberDessert = order.entrySet().stream()
-                    .filter(menu -> mainDish.contains(menu.getKey()))
+                    .filter(menuItem -> menuItem.getKey().isTypeOf(MenuType.MAIN_DISH))
                     .mapToInt(Entry::getValue)
                     .sum();
             return numberDessert * 2023;
@@ -64,7 +43,7 @@ public class Benefits {
                 DayOfWeek.THURSDAY);
         if (weekday.contains(date.getDayOfWeek())) {
             int numberDessert = order.entrySet().stream()
-                    .filter(menu -> dessert.contains(menu.getKey()))
+                    .filter(menuItem -> menuItem.getKey().isTypeOf(MenuType.DESSERT))
                     .mapToInt(Entry::getValue)
                     .sum();
             return numberDessert * 2023;
@@ -74,14 +53,14 @@ public class Benefits {
 
     public List<MenuItem> getFreebieItems() {
         if (getTotalCost() >= 120000) {
-            return List.of(new MenuItem("샴페인", 1));
+            return List.of(new MenuItem(Menu.CHAMPAGNE, 1));
         }
         return List.of();
     }
 
     public int getFreebieBenefit() {
         return getFreebieItems().stream()
-                .mapToInt(item -> item.quantity() * menuCost.get(item.name()))
+                .mapToInt(item -> item.menu().getCost(item.quantity()))
                 .sum();
     }
 

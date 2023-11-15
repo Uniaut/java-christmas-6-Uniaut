@@ -177,15 +177,16 @@
 ## 전반
 
 * [x] 리팩토링: `Calendar`를 `LocalDate` 타입으로 수정한다.
-* [ ] 매직 리터럴과 매직 넘버를 분리한다.
+* [x] 매직 리터럴과 매직 넘버를 분리한다.
 
 ## Exception
 
-* [ ] IllegalArgumentException을 상속하는 EventPlannerException을 만든다.
+* [x] IllegalArgumentException을 상속하는 EventPlannerException을 만든다.
 
 ## Constant
 
 * [ ] `Badge`: `enum`으로 만든다.
+* [x] `ExceptionMessage`: `enum`으로 만든다.
 
 ## DTO
 

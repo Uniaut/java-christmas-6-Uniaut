@@ -1,4 +1,4 @@
 package christmas.domain;
 
-public record MenuItem(String name, int quantity) {
+public record MenuItem(Menu menu, int quantity) {
 }

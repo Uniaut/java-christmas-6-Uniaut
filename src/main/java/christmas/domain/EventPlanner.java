@@ -8,27 +8,10 @@ import java.util.Map;
 
 public class EventPlanner {
     private LocalDate date;
-    private Map<String, Integer> order;
+    private Map<Menu, Integer> order;
 
     private final LocalDate DEC_01 = LocalDate.of(2023, 12, 1);
     private final LocalDate DEC_31 = LocalDate.of(2023, 12, 31);
-    private final List<String> beverage = List.of("제로콜라", "레드와인", "샴페인");
-    private static final Map<String, Integer> menuCost = new HashMap<>();
-
-    static {
-        menuCost.put("양송이수프", 6000);
-        menuCost.put("타파스", 5500);
-        menuCost.put("시저샐러드", 8000);
-        menuCost.put("티본스테이크", 55000);
-        menuCost.put("바비큐립", 54000);
-        menuCost.put("해산물파스타", 35000);
-        menuCost.put("크리스마스파스타", 25000);
-        menuCost.put("초코케이크", 15000);
-        menuCost.put("아이스크림", 5000);
-        menuCost.put("제로콜라", 3000);
-        menuCost.put("레드와인", 60000);
-        menuCost.put("샴페인", 25000);
-    }
 
     public EventPlanner() {
     }
@@ -52,7 +35,7 @@ public class EventPlanner {
         }
 
         boolean isOnlyBeverage = order.stream()
-                .allMatch(menuItem -> beverage.contains(menuItem.name()));
+                .allMatch(menuItem -> menuItem.menu().isTypeOf(MenuType.BEVERAGE));
         if (isOnlyBeverage) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
@@ -66,14 +49,8 @@ public class EventPlanner {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
 
-        boolean isNotValidMenu = order.stream()
-                .anyMatch(menu -> !menuCost.containsKey(menu.name()));
-        if (isNotValidMenu) {
-            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
-        }
-
         long distinctSize = order.stream()
-                .map(MenuItem::name)
+                .map(MenuItem::menu)
                 .distinct()
                 .count();
         if (order.size() != distinctSize) {
@@ -87,7 +64,7 @@ public class EventPlanner {
         validateOrder(order);
         this.order = order.stream().collect(
                 HashMap::new,
-                (map, item) -> map.put(item.name(), item.quantity()),
+                (map, item) -> map.put(item.menu(), item.quantity()),
                 HashMap::putAll
         );
     }
@@ -104,7 +81,7 @@ public class EventPlanner {
 
     public int getTotalCost() {
         return order.keySet().stream()
-                .mapToInt(menu -> order.get(menu) * menuCost.get(menu))
+                .mapToInt(menu -> menu.getCost(order.get(menu)))
                 .sum();
     }
 

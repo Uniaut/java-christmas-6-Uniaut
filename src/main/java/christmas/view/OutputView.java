@@ -49,7 +49,7 @@ public class OutputView {
     public void printOrderItems(List<MenuItem> menuItems) {
         ioInstance.print(TITLE_ORDER_ITEMS);
         for (var item : menuItems) {
-            ioInstance.print(ORDER_ITEMS_FORMAT.formatted(item.name(), item.quantity()));
+            ioInstance.print(ORDER_ITEMS_FORMAT.formatted(item.menu().getName(), item.quantity()));
         }
         ioInstance.print("");
     }
@@ -68,7 +68,7 @@ public class OutputView {
             return;
         }
         for (var item : freebieItems) {
-            ioInstance.print(ORDER_ITEMS_FORMAT.formatted(item.name(), item.quantity()));
+            ioInstance.print(ORDER_ITEMS_FORMAT.formatted(item.menu().getName(), item.quantity()));
         }
         ioInstance.print("");
     }

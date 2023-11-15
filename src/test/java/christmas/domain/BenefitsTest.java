@@ -12,9 +12,9 @@ public class BenefitsTest {
     @Test
     void getWeekdayBenefit() {
         LocalDate dec13 = LocalDate.of(2023, 12, 13);
-        Map<String, Integer> order = Map.of(
-                "초코케이크", 2,
-                "제로콜라", 1
+        Map<Menu, Integer> order = Map.of(
+                Menu.CHOCOLATE_CAKE, 2,
+                Menu.ZERO_COLA, 1
         );
 
         Benefits benefits = new Benefits(dec13, order);
@@ -27,9 +27,9 @@ public class BenefitsTest {
     @Test
     void getWeekendBenefit() {
         LocalDate dec30 = LocalDate.of(2023, 12, 30);
-        Map<String, Integer> order = Map.of(
-                "티본스테이크", 2,
-                "제로콜라", 1
+        Map<Menu, Integer> order = Map.of(
+                Menu.T_BONE_STEAK, 2,
+                Menu.ZERO_COLA, 1
         );
 
         Benefits benefits = new Benefits(dec30, order);
@@ -42,12 +42,13 @@ public class BenefitsTest {
     @Test
     void getBenefitItems() {
         LocalDate dec3 = LocalDate.of(2023, 12, 3);
-        Map<String, Integer> order = Map.of(
-                "티본스테이크", 1,
-                "바비큐립", 1,
-                "초코케이크", 2,
-                "제로콜라", 1
+        Map<Menu, Integer> order = Map.of(
+                Menu.T_BONE_STEAK, 1,
+                Menu.PORK_RIBS, 1,
+                Menu.CHOCOLATE_CAKE, 2,
+                Menu.ZERO_COLA, 1
         );
+
 
         Benefits benefits = new Benefits(dec3, order);
 
@@ -63,9 +64,9 @@ public class BenefitsTest {
     @Test
     void getChristmasBenefitChristmasEve() {
         LocalDate christmasEve = LocalDate.of(2023, 12, 25);
-        Map<String, Integer> order = Map.of(
-                "초코케이크", 2,
-                "제로콜라", 1
+        Map<Menu, Integer> order = Map.of(
+                Menu.CHOCOLATE_CAKE, 2,
+                Menu.ZERO_COLA, 1
         );
 
         Benefits benefits = new Benefits(christmasEve, order);
@@ -78,10 +79,9 @@ public class BenefitsTest {
     @Test
     void getChristmasBenefitAfterChristmas() {
         LocalDate afterChristmas = LocalDate.of(2023, 12, 26);
-
-        Map<String, Integer> order = Map.of(
-                "초코케이크", 2,
-                "제로콜라", 1
+        Map<Menu, Integer> order = Map.of(
+                Menu.CHOCOLATE_CAKE, 2,
+                Menu.ZERO_COLA, 1
         );
 
         Benefits benefits = new Benefits(afterChristmas, order);
@@ -94,13 +94,12 @@ public class BenefitsTest {
     @Test
     void getSpecialBenefitChristmas() {
         LocalDate christmas = LocalDate.of(2023, 12, 25);
-
-        Map<String, Integer> orderMap = Map.of(
-                "초코케이크", 2,
-                "제로콜라", 1
+        Map<Menu, Integer> order = Map.of(
+                Menu.CHOCOLATE_CAKE, 2,
+                Menu.ZERO_COLA, 1
         );
 
-        Benefits benefits = new Benefits(christmas, orderMap);
+        Benefits benefits = new Benefits(christmas, order);
 
         assertThat(benefits.getSpecialBenefit())
                 .isEqualTo(1000);
@@ -110,12 +109,12 @@ public class BenefitsTest {
     @Test
     void getFreebieBenefit() {
         LocalDate dec8 = LocalDate.of(2023, 12, 8);
-        Map<String, Integer> orderMap = Map.of(
-                "초코케이크", 2,
-                "티본스테이크", 2
+        Map<Menu, Integer> order = Map.of(
+                Menu.CHOCOLATE_CAKE, 2,
+                Menu.T_BONE_STEAK, 2
         );
 
-        Benefits benefits = new Benefits(dec8, orderMap);
+        Benefits benefits = new Benefits(dec8, order);
 
         assertThat(benefits.getFreebieBenefit())
                 .isEqualTo(25000);
