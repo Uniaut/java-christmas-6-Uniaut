@@ -12,8 +12,14 @@ public class EventPlanner {
     private LocalDate date;
     private Map<Menu, Integer> order;
 
-    private final LocalDate DEC_01 = LocalDate.of(2023, 12, 1);
-    private final LocalDate DEC_31 = LocalDate.of(2023, 12, 31);
+    private static final LocalDate DEC_01 = LocalDate.of(2023, 12, 1);
+    private static final LocalDate DEC_31 = LocalDate.of(2023, 12, 31);
+
+    private static final int MAX_MENU_QUANTITY = 20;
+
+    private static final int BADGE_SANTA = 20000;
+    private static final int BADGE_TREE = 10000;
+    private static final int BADGE_STAR = 5000;
 
     public EventPlanner() {
     }
@@ -32,13 +38,23 @@ public class EventPlanner {
         int numberTotalMenu = order.stream()
                 .mapToInt(MenuItem::quantity)
                 .sum();
-        if (numberTotalMenu > 20) {
+        if (numberTotalMenu > MAX_MENU_QUANTITY) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
 
         boolean isOnlyBeverage = order.stream()
                 .allMatch(menuItem -> menuItem.menu().isTypeOf(MenuType.BEVERAGE));
         if (isOnlyBeverage) {
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
+        }
+    }
+
+    private void validateOrderUniqueMenu(List<MenuItem> order) {
+        long distinctSize = order.stream()
+                .map(MenuItem::menu)
+                .distinct()
+                .count();
+        if (order.size() != distinctSize) {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
     }
@@ -51,13 +67,7 @@ public class EventPlanner {
             throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
 
-        long distinctSize = order.stream()
-                .map(MenuItem::menu)
-                .distinct()
-                .count();
-        if (order.size() != distinctSize) {
-            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
-        }
+        validateOrderUniqueMenu(order);
 
         validateOrderComposition(order);
     }
@@ -113,13 +123,13 @@ public class EventPlanner {
     }
 
     public String getBadge() {
-        if (getBenefitTotal() >= 20000) {
+        if (getBenefitTotal() >= BADGE_SANTA) {
             return "산타";
         }
-        if (getBenefitTotal() >= 10000) {
+        if (getBenefitTotal() >= BADGE_TREE) {
             return "트리";
         }
-        if (getBenefitTotal() >= 5000) {
+        if (getBenefitTotal() >= BADGE_STAR) {
             return "별";
         }
         return "없음";
