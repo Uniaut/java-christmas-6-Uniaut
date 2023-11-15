@@ -107,6 +107,11 @@ public class EventPlanner {
                 .sum();
     }
 
+    public List<MenuItem> getFreebieItems() {
+        Benefits benefits = new Benefits(date, order);
+        return benefits.getFreebieItems();
+    }
+
     public List<BenefitItem> getBenefitItems() {
         Benefits benefits = new Benefits(date, order);
         return benefits.getBenefitItems();
