@@ -1,5 +1,6 @@
 package christmas.parser;
 
+import christmas.constant.ExceptionMessage;
 import christmas.domain.MenuItem;
 import java.util.List;
 
@@ -9,13 +10,13 @@ public class OrderParser {
 
     private void validateOneItemFormat(String item) {
         if (!item.matches("^([^-]+)-(\\d+)$")) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
     }
 
     private void validateQuantity(int quantity) {
         if (quantity < 1) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
     }
 

@@ -1,5 +1,6 @@
 package christmas.domain;
 
+import christmas.constant.ExceptionMessage;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -34,10 +35,10 @@ public class EventPlanner {
 
     public void setDate(LocalDate date) {
         if (date == null) {
-            throw new IllegalArgumentException("[ERROR] date is null");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_DATE.getMessage());
         }
         if (date.isBefore(DEC_01) || date.isAfter(DEC_31)) {
-            throw new IllegalArgumentException("[ERROR] date is not in December, 2023");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_DATE.getMessage());
         }
         this.date = date;
     }
@@ -47,28 +48,28 @@ public class EventPlanner {
                 .mapToInt(MenuItem::quantity)
                 .sum();
         if (numberTotalMenu > 20) {
-            throw new IllegalArgumentException("[ERROR] 한 번에 %d개까지만 주문할 수 있습니다.".formatted(20));
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
 
         boolean isOnlyBeverage = order.stream()
                 .allMatch(menuItem -> beverage.contains(menuItem.name()));
         if (isOnlyBeverage) {
-            throw new IllegalArgumentException("[ERROR] 음료만 주문할 수 없습니다.");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
     }
 
     private void validateOrder(List<MenuItem> order) {
         if (order == null) {
-            throw new IllegalArgumentException("[ERROR] order is null");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
         if (order.isEmpty()) {
-            throw new IllegalArgumentException("[ERROR] order is empty");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
 
         boolean isNotValidMenu = order.stream()
                 .anyMatch(menu -> !menuCost.containsKey(menu.name()));
         if (isNotValidMenu) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해주세요.");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
 
         long distinctSize = order.stream()
@@ -76,7 +77,7 @@ public class EventPlanner {
                 .distinct()
                 .count();
         if (order.size() != distinctSize) {
-            throw new IllegalArgumentException("[ERROR] 중복된 주문이 있습니다. 다시 입력해주세요.");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_ORDER.getMessage());
         }
 
         validateOrderComposition(order);

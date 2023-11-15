@@ -1,5 +1,6 @@
 package christmas.parser;
 
+import christmas.constant.ExceptionMessage;
 import java.time.LocalDate;
 
 public class DayDateParser implements Parser<LocalDate>{
@@ -13,13 +14,13 @@ public class DayDateParser implements Parser<LocalDate>{
         try {
             return Integer.parseInt(input);
         } catch (NumberFormatException e) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_DATE.getMessage());
         }
     }
 
     private void validateDayInRange(int day) {
         if (day < MIN_DAY || day > MAX_DAY) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 날짜입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(ExceptionMessage.INVALID_DATE.getMessage());
         }
     }
 
