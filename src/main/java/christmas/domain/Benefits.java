@@ -20,6 +20,7 @@ public class Benefits {
     private final List<String> mainDish = List.of("티본스테이크", "바비큐립", "해산물파스타", "크리스마스파스타");
 
     private static final Map<String, Integer> menuCost = new HashMap<>();
+
     static {
         menuCost.put("양송이수프", 6000);
         menuCost.put("타파스", 5500);
@@ -34,6 +35,7 @@ public class Benefits {
         menuCost.put("레드와인", 60000);
         menuCost.put("샴페인", 25000);
     }
+
     public Benefits(LocalDate date, Map<String, Integer> order) {
         this.date = date;
         this.order = order;
@@ -58,7 +60,8 @@ public class Benefits {
     }
 
     public int getWeekdayBenefit() {
-        List<DayOfWeek> weekday = List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY, DayOfWeek.THURSDAY);
+        List<DayOfWeek> weekday = List.of(DayOfWeek.SUNDAY, DayOfWeek.MONDAY, DayOfWeek.TUESDAY, DayOfWeek.WEDNESDAY,
+                DayOfWeek.THURSDAY);
         if (weekday.contains(date.getDayOfWeek())) {
             int numberDessert = order.entrySet().stream()
                     .filter(menu -> dessert.contains(menu.getKey()))
