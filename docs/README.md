@@ -192,9 +192,9 @@
 
 * [ ] `ReservationDate`
 * [ ] `MenuItems` : 일급 컬렉션
-    * [ ] `MenuItem` : 패키지 위치 옮기기
+    * [x] `MenuItem` : 패키지 위치 옮기기
 * [ ] `BenefitItems` : 일급 컬렉션
-    * [ ] `BenefitItem` : 패키지 위치 옮기기
+    * [x] `BenefitItem` : 패키지 위치 옮기기
 * [ ] `Money`: `int`를 `Money`로 래핑한다.
 
 
