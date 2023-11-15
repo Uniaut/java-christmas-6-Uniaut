@@ -2,9 +2,7 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.awt.Menu;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,7 +28,7 @@ public class BenefitsTest {
     void getWeekendBenefit() {
         LocalDate dec30 = LocalDate.of(2023, 12, 30);
         Map<String, Integer> order = Map.of(
-                "초코케이크", 2,
+                "티본스테이크", 2,
                 "제로콜라", 1
         );
 
