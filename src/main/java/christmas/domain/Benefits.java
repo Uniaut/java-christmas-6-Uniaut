@@ -75,15 +75,9 @@ public class Benefits {
     }
 
     public int getSpecialBenefit() {
-        List<LocalDate> starDay = List.of(
-                LocalDate.of(2023, 12, 3),
-                LocalDate.of(2023, 12, 10),
-                LocalDate.of(2023, 12, 17),
-                LocalDate.of(2023, 12, 24),
-                LocalDate.of(2023, 12, 25),
-                LocalDate.of(2023, 12, 31)
-        );
-        if (starDay.contains(date)) {
+        List<Integer> starDayDate = List.of(3, 10, 17, 24, 25, 31);
+
+        if (starDayDate.contains(date.getDayOfMonth())) {
             return 1000;
         }
         return 0;
