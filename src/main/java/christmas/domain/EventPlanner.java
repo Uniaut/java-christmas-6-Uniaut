@@ -184,6 +184,10 @@ public class EventPlanner {
             return items;
         }
 
+        BenefitItem weekday = new BenefitItem("평일 할인", getWeekdayBenefit());
+        if (weekday.amount() != 0) {
+            items.add(weekday);
+        }
         BenefitItem weekend = new BenefitItem("주말 할인", getWeekendBenefit());
         if (weekend.amount() != 0) {
             items.add(weekend);
@@ -192,13 +196,9 @@ public class EventPlanner {
         if (freebie.amount() != 0) {
             items.add(freebie);
         }
-        BenefitItem christmas = new BenefitItem("크리스마스 할인", getChristmasBenefit());
+        BenefitItem christmas = new BenefitItem("크리스마스 디데이 할인", getChristmasBenefit());
         if (christmas.amount() != 0) {
             items.add(christmas);
-        }
-        BenefitItem weekday = new BenefitItem("주중 할인", getWeekdayBenefit());
-        if (weekday.amount() != 0) {
-            items.add(weekday);
         }
         BenefitItem special = new BenefitItem("특별 할인", getSpecialBenefit());
         if (special.amount() != 0) {
