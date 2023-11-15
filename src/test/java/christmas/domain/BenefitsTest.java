@@ -2,8 +2,10 @@ package christmas.domain;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.awt.Menu;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -12,17 +14,14 @@ public class BenefitsTest {
     @Test
     void getWeekdayBenefit() {
         LocalDate dec13 = LocalDate.of(2023, 12, 13);
-
-        List<MenuItem> order = List.of(
-                new MenuItem("티본스테이크", 2),
-                new MenuItem("제로콜라", 1)
+        Map<String, Integer> order = Map.of(
+                "초코케이크", 2,
+                "제로콜라", 1
         );
 
-        EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(dec13);
-        eventPlanner.setOrder(order);
+        Benefits benefits = new Benefits(dec13, order);
 
-        assertThat(eventPlanner.getWeekdayBenefit())
+        assertThat(benefits.getWeekdayBenefit())
                 .isEqualTo(2023 * 2);
     }
 
@@ -30,17 +29,14 @@ public class BenefitsTest {
     @Test
     void getWeekendBenefit() {
         LocalDate dec30 = LocalDate.of(2023, 12, 30);
-
-        List<MenuItem> order = List.of(
-                new MenuItem("초코케이크", 2),
-                new MenuItem("제로콜라", 1)
+        Map<String, Integer> order = Map.of(
+                "초코케이크", 2,
+                "제로콜라", 1
         );
 
-        EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(dec30);
-        eventPlanner.setOrder(order);
+        Benefits benefits = new Benefits(dec30, order);
 
-        assertThat(eventPlanner.getWeekendBenefit())
+        assertThat(benefits.getWeekendBenefit())
                 .isEqualTo(2023 * 2);
     }
 
@@ -48,19 +44,16 @@ public class BenefitsTest {
     @Test
     void getBenefitItems() {
         LocalDate dec3 = LocalDate.of(2023, 12, 3);
-
-        List<MenuItem> order = List.of(
-                new MenuItem("티본스테이크", 1),
-                new MenuItem("바비큐립", 1),
-                new MenuItem("초코케이크", 2),
-                new MenuItem("제로콜라", 1)
+        Map<String, Integer> order = Map.of(
+                "티본스테이크", 1,
+                "바비큐립", 1,
+                "초코케이크", 2,
+                "제로콜라", 1
         );
 
-        EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(dec3);
-        eventPlanner.setOrder(order);
+        Benefits benefits = new Benefits(dec3, order);
 
-        assertThat(eventPlanner.getBenefitItems())
+        assertThat(benefits.getBenefitItems())
                 .contains(new BenefitItem("크리스마스 디데이 할인", 1200))
                 .contains(new BenefitItem("평일 할인", 2023 * 2))
                 .contains(new BenefitItem("특별 할인", 1000))
@@ -72,17 +65,14 @@ public class BenefitsTest {
     @Test
     void getChristmasBenefitChristmasEve() {
         LocalDate christmasEve = LocalDate.of(2023, 12, 25);
-
-        List<MenuItem> order = List.of(
-                new MenuItem("초코케이크", 2),
-                new MenuItem("제로콜라", 1)
+        Map<String, Integer> order = Map.of(
+                "초코케이크", 2,
+                "제로콜라", 1
         );
 
-        EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(christmasEve);
-        eventPlanner.setOrder(order);
+        Benefits benefits = new Benefits(christmasEve, order);
 
-        assertThat(eventPlanner.getChristmasBenefit())
+        assertThat(benefits.getChristmasBenefit())
                 .isEqualTo(3400);
     }
 
@@ -91,16 +81,14 @@ public class BenefitsTest {
     void getChristmasBenefitAfterChristmas() {
         LocalDate afterChristmas = LocalDate.of(2023, 12, 26);
 
-        List<MenuItem> order = List.of(
-                new MenuItem("초코케이크", 2),
-                new MenuItem("제로콜라", 1)
+        Map<String, Integer> order = Map.of(
+                "초코케이크", 2,
+                "제로콜라", 1
         );
 
-        EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(afterChristmas);
-        eventPlanner.setOrder(order);
+        Benefits benefits = new Benefits(afterChristmas, order);
 
-        assertThat(eventPlanner.getChristmasBenefit())
+        assertThat(benefits.getChristmasBenefit())
                 .isEqualTo(0);
     }
 
@@ -109,31 +97,29 @@ public class BenefitsTest {
     void getSpecialBenefitChristmas() {
         LocalDate christmas = LocalDate.of(2023, 12, 25);
 
-        List<MenuItem> order = List.of(
-                new MenuItem("초코케이크", 2),
-                new MenuItem("제로콜라", 1)
+        Map<String, Integer> orderMap = Map.of(
+                "초코케이크", 2,
+                "제로콜라", 1
         );
 
-        EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(christmas);
-        eventPlanner.setOrder(order);
+        Benefits benefits = new Benefits(christmas, orderMap);
 
-        assertThat(eventPlanner.getSpecialBenefit())
+        assertThat(benefits.getSpecialBenefit())
                 .isEqualTo(1000);
     }
 
     @DisplayName("getFreebieBenefit는 샴페인 증정 혜택 금액을 반환한다.")
     @Test
     void getFreebieBenefit() {
-        List<MenuItem> order = List.of(
-                new MenuItem("초코케이크", 2),
-                new MenuItem("티본스테이크", 2)
+        LocalDate dec8 = LocalDate.of(2023, 12, 8);
+        Map<String, Integer> orderMap = Map.of(
+                "초코케이크", 2,
+                "티본스테이크", 2
         );
 
-        EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setOrder(order);
+        Benefits benefits = new Benefits(dec8, orderMap);
 
-        assertThat(eventPlanner.getFreebieBenefit())
+        assertThat(benefits.getFreebieBenefit())
                 .isEqualTo(25000);
     }
 }
