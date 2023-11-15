@@ -1,7 +1,6 @@
 package christmas.domain;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,12 +108,8 @@ public class EventPlanner {
     }
 
     public List<BenefitItem> getBenefitItems() {
-        List<BenefitItem> items = new ArrayList<>();
-
-        // TODO: uncomment when benefits instance is created
-        // items.addAll(benefits.getBenefitItems());
-
-        return items;
+        Benefits benefits = new Benefits(date, order);
+        return benefits.getBenefitItems();
     }
 
     public int getBenefitTotal() {
@@ -124,14 +119,10 @@ public class EventPlanner {
     }
 
     public int getTotalCostDiscounted() {
-        int totalDiscount = 0;
-
-        for (BenefitItem item : getBenefitItems()) {
-            if (item.name().equals("증정 이벤트")) {
-                continue;
-            }
-            totalDiscount += item.amount();
-        }
+        int totalDiscount = getBenefitItems().stream()
+                .filter(item -> item.name().contains("할인"))
+                .mapToInt(BenefitItem::amount)
+                .sum();
 
         return getTotalCost() - totalDiscount;
     }
