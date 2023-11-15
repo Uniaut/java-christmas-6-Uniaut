@@ -204,23 +204,27 @@ public class EventPlannerTest {
                 .isEqualTo(2023 * 2);
     }
 
-    // TODO: 최대한 많은 혜택 내역을 반영하도록 수정한다.
     @DisplayName("getBenefitItems는 혜택 내역들을 반환한다.")
     @Test
     void getBenefitItems() {
-        LocalDate dec30 = LocalDate.of(2023, 12, 30);
+        LocalDate dec3 = LocalDate.of(2023, 12, 3);
 
         List<MenuItem> order = List.of(
+                new MenuItem("티본스테이크", 1),
+                new MenuItem("바비큐립", 1),
                 new MenuItem("초코케이크", 2),
                 new MenuItem("제로콜라", 1)
         );
 
         EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(dec30);
+        eventPlanner.setDate(dec3);
         eventPlanner.setOrder(order);
 
         assertThat(eventPlanner.getBenefitItems())
-                .contains(new BenefitItem("주말 할인", 2023 * 2));
+                .contains(new BenefitItem("크리스마스 디데이 할인", 1200))
+                .contains(new BenefitItem("평일 할인", 2023 * 2))
+                .contains(new BenefitItem("특별 할인", 1000))
+                .contains(new BenefitItem("증정 이벤트", 25000));
 
     }
 
@@ -293,23 +297,24 @@ public class EventPlannerTest {
                 .isEqualTo(25000);
     }
 
-    // TODO: 최대한 많은 혜택 내역을 반영하도록 수정한다.
     @DisplayName("getBenefitTotal는 총혜택 금액을 반환한다. 증정을 포함한다.")
     @Test
     void getBenefitTotal() {
-        LocalDate dec30 = LocalDate.of(2023, 12, 30);
+        LocalDate dec8 = LocalDate.of(2023, 12, 8);
 
         List<MenuItem> order = List.of(
+                new MenuItem("티본스테이크", 1),
+                new MenuItem("바비큐립", 1),
                 new MenuItem("초코케이크", 2),
-                new MenuItem("티본스테이크", 2)
+                new MenuItem("제로콜라", 1)
         );
 
         EventPlanner eventPlanner = new EventPlanner();
-        eventPlanner.setDate(dec30);
+        eventPlanner.setDate(dec8);
         eventPlanner.setOrder(order);
 
         assertThat(eventPlanner.getBenefitTotal())
-                .isEqualTo(2023 * 2 + 25000);
+                .isEqualTo(2023 * 2 + 25000 + 1700);
     }
 
     @DisplayName("모든 혜택은 총주문 금액 10000원 미만에는 적용되지 않는다")
